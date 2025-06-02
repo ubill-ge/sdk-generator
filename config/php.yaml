@@ -1,0 +1,14 @@
+#gitUserId: ubill-ge
+#gitRepoId: sdk-php
+enablePostProcessFile: true
+
+artifactUrl: https://ubill.ge
+artifactVersion: 0.1.0
+composerPackageName: ubill/sdk
+developerOrganization: ABGEO
+developerOrganizationUrl: https://www.abgeo.dev
+invokerPackage: UBill\Sdk
+licenseName: MIT
+packageName: sdk-php
+srcBasePath: src
+variableNamingConvention: camelCase
