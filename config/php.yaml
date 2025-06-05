@@ -1,5 +1,3 @@
-enablePostProcessFile: true
-
 artifactUrl: https://ubill.ge
 artifactVersion: 0.1.0
 composerPackageName: ubill/sdk

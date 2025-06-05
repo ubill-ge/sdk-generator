@@ -1,0 +1,7 @@
+php:
+  - scripts/generate.sh
+  - config/php.yaml
+  - spec/**
+  - templates/base/**
+  - templates/php/**
+  - openapitools.json

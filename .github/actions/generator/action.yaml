@@ -1,0 +1,44 @@
+name: OpenAPI Generator
+
+inputs:
+  github-token:
+    description: GitHub token
+    required: true
+  sdk:
+    description: SDK Name
+    required: true
+  output-path:
+    description: Path to output directory
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout Generator
+      uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.github-token }}
+        repository: ${{ github.repository_owner }}/generator-test
+        path: generator
+
+    - name: Set up PNPM
+      uses: pnpm/action-setup@v4
+      with:
+        package_json_file: generator/package.json
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: generator/package.json
+        cache: pnpm
+        cache-dependency-path: generator/pnpm-lock.yaml
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ./generator
+      run: pnpm install
+
+    - name: Generate SDK
+      shell: bash
+      working-directory: ./generator
+      run: pnpm generate "${{ inputs.sdk }}" "${{ inputs.output-path }}"

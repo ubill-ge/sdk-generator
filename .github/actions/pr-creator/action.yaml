@@ -1,0 +1,43 @@
+name: Create PR
+
+inputs:
+  github-token:
+    description: GitHub token
+    required: true
+  sdk:
+    description: SDK Name
+    required: true
+  sdk-version:
+    description: Version of SDK
+    required: true
+  committer:
+    description: >
+      The committer name and email address in the format `Display Name <email@address.com>`.
+      Defaults to the GitHub Actions bot user.
+    default: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+
+runs:
+  using: composite
+  steps:
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v7
+      with:
+        token: ${{ inputs.github-token }}
+        path: sdk
+        commit-message: 'chore: generate v${{ inputs.sdk-version }}'
+        committer: ${{ inputs.committer }}
+        branch: 'generate/${{ inputs.sdk-version }}'
+        delete-branch: true
+        title: 'Generate SDK v${{ inputs.sdk-version }}'
+        body: 'This PR generates SDK v${{ inputs.sdk-version }}'
+
+    - name: Update Summary
+      if: steps.cpr.outputs.pull-request-url != ''
+      shell: bash
+      run: |
+        echo '### ✅ Pull Request #${{ steps.cpr.outputs.pull-request-number }} ${{ steps.cpr.outputs.pull-request-operation }}' >> $GITHUB_STEP_SUMMARY
+        echo '' >> $GITHUB_STEP_SUMMARY
+        echo '- 🔗 **URL**: [${{ steps.cpr.outputs.pull-request-url }}](${{ steps.cpr.outputs.pull-request-url }})' >> $GITHUB_STEP_SUMMARY
+        echo '- 🌿 **Branch**: \`${{ steps.cpr.outputs.pull-request-branch }}\`' >> $GITHUB_STEP_SUMMARY
+        echo '- 🧬 **Head SHA**: \`${{ steps.cpr.outputs.pull-request-head-sha }}\`' >> $GITHUB_STEP_SUMMARY
