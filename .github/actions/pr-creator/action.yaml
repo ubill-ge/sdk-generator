@@ -10,6 +10,9 @@ inputs:
   sdk-version:
     description: Version of SDK
     required: true
+  sdk-path:
+    description: Path to the SDK directory
+    required: true
   committer:
     description: >
       The committer name and email address in the format `Display Name <email@address.com>`.
@@ -24,7 +27,7 @@ runs:
       uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ inputs.github-token }}
-        path: sdk
+        path: ${{ inputs.sdk-path }}
         commit-message: 'chore: generate v${{ inputs.sdk-version }}'
         committer: ${{ inputs.committer }}
         branch: 'generate/${{ inputs.sdk-version }}'

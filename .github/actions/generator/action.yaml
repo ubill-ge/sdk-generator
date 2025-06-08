@@ -7,9 +7,16 @@ inputs:
   sdk:
     description: SDK Name
     required: true
+  sdk-version-key:
+    description: The OpenAPI Generator config key which holds the SDK version
+    default: 'artifactVersion'
   output-path:
     description: Path to output directory
     required: true
+outputs:
+  sdk-version:
+    description: The version of Generated SDK
+    value: ${{ steps.esv.outputs.result }}
 
 runs:
   using: composite
@@ -42,3 +49,9 @@ runs:
       shell: bash
       working-directory: ./generator
       run: pnpm generate "${{ inputs.sdk }}" "${{ inputs.output-path }}"
+
+    - name: Extract SDK Version
+      id: esv
+      uses: mikefarah/yq@v4
+      with:
+        cmd: yq '.${{ inputs.sdk-version-key }}' ./generator/config/${{ inputs.sdk }}.yaml
