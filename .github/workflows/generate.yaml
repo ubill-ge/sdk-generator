@@ -8,7 +8,7 @@ on:
 jobs:
   detect-changes:
     name: Detect changed SDKs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.changes.outputs.modified_keys }}
     steps:
@@ -36,7 +36,7 @@ jobs:
 
   dispatch-workflows:
     name: Run Matrix Job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [ detect-changes ]
     if: needs.detect-changes.outputs.matrix != '[]'
     strategy:
