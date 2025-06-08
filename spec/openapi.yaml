@@ -23,7 +23,10 @@ paths:
       tags:
         - sms
       summary: Create Brand Name
-      operationId: createBrandName
+      description: |
+        Register a new brand name for SMS messaging.
+        Brand names are used to identify the sender of SMS messages (e.g., "ubill-info").
+      operationId: CreateBrandName
       requestBody:
         $ref: '#/components/requestBodies/CreateBrandNamePayload'
       responses:
@@ -42,7 +45,8 @@ paths:
       tags:
         - sms
       summary: Get All Brand Names
-      operationId: getBrandNames
+      description: Retrieve a list of all registered brand names associated with your account.
+      operationId: GetBrandNames
       responses:
         '200':
           description: successful operation
@@ -59,7 +63,8 @@ paths:
       tags:
         - sms
       summary: Send SMS
-      operationId: sendSMS
+      description: Send SMS messages to one or multiple recipients using a registered brand name.
+      operationId: SendSms
       requestBody:
         $ref: '#/components/requestBodies/SMSPayload'
       responses:
@@ -78,7 +83,8 @@ paths:
       tags:
         - sms
       summary: Get Delivery Report
-      operationId: getDeliveryReport
+      description: Fetch the delivery status of a previously sent SMS using its unique identifier.
+      operationId: GetDeliveryReport
       parameters:
         - $ref: '#/components/parameters/SMSIDParam'
       responses:
@@ -97,7 +103,8 @@ paths:
       tags:
         - sms
       summary: Get SMS Balance
-      operationId: getBalance
+      description: Retrieve your current SMS balance, indicating how many messages you can send.
+      operationId: GetBalance
       responses:
         '200':
           description: successful operation
@@ -196,13 +203,13 @@ components:
         brandID:
           type: integer
           format: int64
-          example: "1"
+          example: 1
         numbers:
           type: array
           items:
             type: integer
             format: int64
-            example: "995511194241"
+            example: 995511194241
         text:
           type: string
           example: "Hello"

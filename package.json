@@ -2,6 +2,7 @@
   "name": "@ubill/generator",
   "private": true,
   "scripts": {
+    "lint:spec": "spectral lint spec/**",
     "generate": "./scripts/generate.sh"
   },
   "license": "MIT",
@@ -10,6 +11,7 @@
   },
   "packageManager": "pnpm@10.11.1",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.20.2"
+    "@openapitools/openapi-generator-cli": "^2.20.2",
+    "@stoplight/spectral-cli": "^6.15.0"
   }
 }
