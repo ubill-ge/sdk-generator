@@ -9,6 +9,9 @@ TEMPLATES_DIR=$(mktemp -d)
 cp -r ./templates/${GENERATOR} ${TEMPLATES_DIR}/${GENERATOR}
 cp -r ./templates/base/* ${TEMPLATES_DIR}/${GENERATOR}
 
+mkdir -p ${TEMPLATES_DIR}/${GENERATOR}/.github
+cp .github/CODEOWNERS ${TEMPLATES_DIR}/${GENERATOR}/.github
+
 openapi-generator-cli generate \
   -i spec/openapi.yaml \
   -g ${GENERATOR} \
