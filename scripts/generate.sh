@@ -11,6 +11,7 @@ cp -r ./templates/base/* ${TEMPLATES_DIR}/${GENERATOR}
 
 mkdir -p ${TEMPLATES_DIR}/${GENERATOR}/.github
 cp .github/CODEOWNERS ${TEMPLATES_DIR}/${GENERATOR}/.github
+cp LICENSE ${TEMPLATES_DIR}/${GENERATOR}
 
 openapi-generator-cli generate \
   -i spec/openapi.yaml \
