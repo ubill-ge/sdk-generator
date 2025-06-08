@@ -64,7 +64,7 @@ paths:
         - sms
       summary: Send SMS
       description: Send SMS messages to one or multiple recipients using a registered brand name.
-      operationId: SendSms
+      operationId: Send
       requestBody:
         $ref: '#/components/requestBodies/SMSPayload'
       responses:
