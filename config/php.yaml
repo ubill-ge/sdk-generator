@@ -12,3 +12,4 @@ variableNamingConvention: camelCase
 files:
   CONTRIBUTING.md: { }
   LICENSE: { }
+  .github/workflows/test-and-lint.yaml: { }
