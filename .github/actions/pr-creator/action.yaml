@@ -39,5 +39,5 @@ runs:
         echo '### ✅ Pull Request #${{ steps.cpr.outputs.pull-request-number }} ${{ steps.cpr.outputs.pull-request-operation }}' >> $GITHUB_STEP_SUMMARY
         echo '' >> $GITHUB_STEP_SUMMARY
         echo '- 🔗 **URL**: [${{ steps.cpr.outputs.pull-request-url }}](${{ steps.cpr.outputs.pull-request-url }})' >> $GITHUB_STEP_SUMMARY
-        echo '- 🌿 **Branch**: \`${{ steps.cpr.outputs.pull-request-branch }}\`' >> $GITHUB_STEP_SUMMARY
-        echo '- 🧬 **Head SHA**: \`${{ steps.cpr.outputs.pull-request-head-sha }}\`' >> $GITHUB_STEP_SUMMARY
+        echo '- 🌿 **Branch**: `${{ steps.cpr.outputs.pull-request-branch }}`' >> $GITHUB_STEP_SUMMARY
+        echo '- 🧬 **Head SHA**: `${{ steps.cpr.outputs.pull-request-head-sha }}`' >> $GITHUB_STEP_SUMMARY
