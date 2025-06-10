@@ -1,0 +1,9 @@
+.github
+.openapi-generator
+node_modules
+.idea
+docs
+
+.gitignore
+.npmignore
+.openapi-generator-ignore

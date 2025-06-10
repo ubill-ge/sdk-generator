@@ -5,3 +5,10 @@ php:
   - templates/base/**
   - templates/php/**
   - openapitools.json
+typescript-axios:
+  - scripts/generate.sh
+  - config/typescript-axios.yaml
+  - spec/**
+  - templates/base/**
+  - templates/typescript-axios/**
+  - openapitools.json

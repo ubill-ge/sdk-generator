@@ -52,13 +52,24 @@ jobs:
           private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
-      - name: Dispatch workflow in ${{ matrix.sdk }} repository
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Set SDK repository
+        id: sdk-repo
+        run: |
+          REPO=$(jq -r '.["${{ matrix.sdk }}"]' .github/workflows/files/sdk-repo-mapping.json)
+          echo "repo=$REPO" >> $GITHUB_OUTPUT
+
+      - name: Dispatch workflow in ${{ steps.sdk-repo.outputs.repo }} repository
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: 'Generate SDK'
           token: ${{ steps.app-token.outputs.token }}
           ref: main
-          repo: 'ubill-ge/sdk-${{ matrix.sdk }}'
+          repo: ${{ steps.sdk-repo.outputs.repo }}
 
       - name: Update Summary
         run: |
