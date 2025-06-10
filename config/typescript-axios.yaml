@@ -3,7 +3,7 @@ axiosVersion: ^1.9.0
 licenseName: MIT
 modelPackage: model
 npmName: '@ubill/sdk'
-npmVersion: 0.1.0
+npmVersion: 0.1.2
 supportsES6: true
 useSingleRequestParameter: true
 withInterfaces: true
@@ -15,4 +15,5 @@ files:
   LICENSE: { }
   .github/CODEOWNERS: { }
   .github/workflows/lint.yaml: { }
+  .github/workflows/publish.yaml: { }
   eslint.config.mjs: { }
