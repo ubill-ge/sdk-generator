@@ -1,0 +1,27 @@
+name: Run Tests and Linter
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+          cache-dependency-path: 'go.sum'
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Lint
+        run: go vet -v ./...
+
+      - name: Test
+        run: go test -v ./...

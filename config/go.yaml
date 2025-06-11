@@ -9,3 +9,4 @@ files:
   CONTRIBUTING.md: { }
   LICENSE: { }
   .github/CODEOWNERS: { }
+  .github/workflows/test-and-lint.yaml: { }
