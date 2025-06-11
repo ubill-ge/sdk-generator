@@ -1,3 +1,10 @@
+go:
+  - scripts/generate.sh
+  - config/go.yaml
+  - spec/**
+  - templates/base/**
+  - templates/go/**
+  - openapitools.json
 php:
   - scripts/generate.sh
   - config/php.yaml

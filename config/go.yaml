@@ -1,0 +1,11 @@
+gitUserId: ubill-ge
+gitRepoId: sdk-go
+
+generateInterfaces: true
+packageName: ubill
+packageVersion: 0.1.0
+
+files:
+  CONTRIBUTING.md: { }
+  LICENSE: { }
+  .github/CODEOWNERS: { }
