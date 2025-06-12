@@ -12,45 +12,5 @@ on:
 
 jobs:
   update-release-draft:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Get GitHub App token
-        id: app-token
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ vars.CI_APP_ID }}
-          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-pull-requests: write
-          permission-issues: write
-
-      - name: Get latest draft Version
-        id: get-last-draft-version
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          TAG=$(gh api "/repos/${{ github.repository }}/releases" --jq '[.[] | select(.draft == true)] | sort_by(.created_at) | last | .tag_name')
-
-          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
-
-      - name: Detect Version
-        id: detect-version
-        run: |
-          set -e
-
-          VERSION="${{ steps.get-last-draft-version.outputs.version }}"
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            if [[ "$GITHUB_HEAD_REF" =~ ^generate/([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
-              VERSION="${BASH_REMATCH[1]}"
-            fi
-          fi
-
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        with:
-          config-name: release-drafter.yaml
-          version: ${{ steps.detect-version.outputs.version }}
-          commitish: main
+    uses: ubill-ge/sdk-generator/.github/workflows/sdk-release-drafter.yaml@main
+    secrets: inherit
