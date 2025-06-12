@@ -6,10 +6,6 @@ header: |
 category-template: '### $TITLE'
 template: '$CHANGES'
 change-template: '- $TITLE (#$NUMBER)'
-footer: |
-
-  ---
-  **Full Changelog**: [$PREVIOUS_TAG...v$RESOLVED_VERSION](https://github.com/ubill-ge/rd-test/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)
 autolabeler:
   - label: 'feature'
     title:
