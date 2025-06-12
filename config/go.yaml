@@ -6,7 +6,9 @@ packageName: ubill
 packageVersion: 0.1.0
 
 files:
+  .github/CODEOWNERS: { }
+  .github/release-drafter.yaml: { }
+  .github/workflows/release-drafter.yaml: { }
   CONTRIBUTING.md: { }
   LICENSE: { }
-  .github/CODEOWNERS: { }
   .github/workflows/test-and-lint.yaml: { }

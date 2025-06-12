@@ -11,9 +11,11 @@ withNodeImports: true
 withSeparateModelsAndApi: true
 
 files:
+  .github/CODEOWNERS: { }
+  .github/release-drafter.yaml: { }
+  .github/workflows/release-drafter.yaml: { }
   CONTRIBUTING.md: { }
   LICENSE: { }
-  .github/CODEOWNERS: { }
   .github/workflows/lint.yaml: { }
   .github/workflows/publish.yaml: { }
   eslint.config.mjs: { }

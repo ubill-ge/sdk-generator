@@ -18,6 +18,12 @@ inputs:
       The committer name and email address in the format `Display Name <email@address.com>`.
       Defaults to the GitHub Actions bot user.
     default: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+  trigger-commit-hash:
+    description: The commit SHA that triggered the generation action
+    required: true
+  trigger-commit-message:
+    description: The commit message associated with the triggering commit
+    required: true
 
 runs:
   using: composite
@@ -28,12 +34,16 @@ runs:
       with:
         token: ${{ inputs.github-token }}
         path: ${{ inputs.sdk-path }}
-        commit-message: 'chore: generate v${{ inputs.sdk-version }}'
+        commit-message: ${{ inputs.trigger-commit-message }}
         committer: ${{ inputs.committer }}
         branch: 'generate/${{ inputs.sdk-version }}'
         delete-branch: true
-        title: 'Generate SDK v${{ inputs.sdk-version }}'
-        body: 'This PR generates SDK v${{ inputs.sdk-version }}'
+        title: ${{ inputs.trigger-commit-message }}
+        body: |
+          This is an automated pull request to generate the SDK.
+
+          **Version:** `v${{ inputs.sdk-version }}`
+          **Triggered by:** https://github.com/ubill-ge/sdk-generator/commit/${{ inputs.trigger-commit-hash }}
 
     - name: Update Summary
       if: steps.cpr.outputs.pull-request-url != ''

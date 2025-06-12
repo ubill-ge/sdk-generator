@@ -68,6 +68,11 @@ jobs:
         with:
           workflow: 'Generate SDK'
           token: ${{ steps.app-token.outputs.token }}
+          inputs: |
+            {
+              "trigger-commit-hash": "${{ github.sha }}",
+              "trigger-commit-message": "${{ github.event.head_commit.message }}"
+            }
           ref: main
           repo: ${{ steps.sdk-repo.outputs.repo }}
 

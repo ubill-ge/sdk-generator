@@ -1,0 +1,46 @@
+name-template: '🚀 Generate v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+change-title-escapes: '\<*_&@#'
+header: |
+  ## 📋 Changelog
+category-template: '### $TITLE'
+template: '$CHANGES'
+change-template: '- $TITLE (#$NUMBER)'
+footer: |
+
+  ---
+  **Full Changelog**: [$PREVIOUS_TAG...v$RESOLVED_VERSION](https://github.com/ubill-ge/rd-test/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)
+autolabeler:
+  - label: 'feature'
+    title:
+      - '/feat/i'
+  - label: 'bug'
+    title:
+      - '/fix/i'
+  - label: 'refactor'
+    title:
+      - '/refactor/i'
+  - label: 'docs'
+    title:
+      - '/docs/i'
+  - label: 'dependencies'
+    title:
+      - '/chore\(deps\)/i'
+categories:
+  - title: '✨ Features'
+    labels:
+      - 'feature'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bug'
+  - title: '♻️ Refactoring'
+    labels:
+      - 'refactor'
+  - title: '📚️ Documentation'
+    labels:
+      - 'docs'
+  - title: '📦 Dependency Updates'
+    labels:
+      - 'dependencies'
+  - title: '📝 Other Changes'
+    labels: [ ]

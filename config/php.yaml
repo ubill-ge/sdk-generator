@@ -10,7 +10,9 @@ srcBasePath: src
 variableNamingConvention: camelCase
 
 files:
+  .github/CODEOWNERS: { }
+  .github/release-drafter.yaml: { }
+  .github/workflows/release-drafter.yaml: { }
   CONTRIBUTING.md: { }
   LICENSE: { }
   .github/workflows/test-and-lint.yaml: { }
-  .github/CODEOWNERS: { }
