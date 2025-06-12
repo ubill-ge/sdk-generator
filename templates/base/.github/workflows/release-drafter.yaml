@@ -9,6 +9,7 @@ on:
       - opened
       - reopened
       - synchronize
+      - closed
 
 jobs:
   update-release-draft:
