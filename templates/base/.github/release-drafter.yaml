@@ -49,3 +49,4 @@ categories:
     labels: [ ]
 exclude-labels:
   - 'release'
+  - 'skip-changelog'

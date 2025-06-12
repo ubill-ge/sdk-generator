@@ -47,6 +47,15 @@ jobs:
 
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
+      - name: Checkout Commit
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Get Head Commit Message
+        id: get-head-commit-message
+        run: echo "message=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
+
       - uses: release-drafter/release-drafter@v6
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
