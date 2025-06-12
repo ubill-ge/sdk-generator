@@ -53,4 +53,5 @@ jobs:
         with:
           config-name: ${{ inputs.config-name }}
           version: ${{ steps.detect-version.outputs.version }}
+          publish: ${{ contains(github.event.head_commit.message, 'prepare release') }}
           commitish: ${{ inputs.commitish }}

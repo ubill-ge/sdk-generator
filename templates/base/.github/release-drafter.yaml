@@ -26,6 +26,9 @@ autolabeler:
   - label: 'dependencies'
     title:
       - '/chore\(deps\)/i'
+  - label: 'release'
+    title:
+      - '/prepare\s+release/i'
 categories:
   - title: '✨ Features'
     labels:
@@ -44,3 +47,5 @@ categories:
       - 'dependencies'
   - title: '📝 Other Changes'
     labels: [ ]
+exclude-labels:
+  - 'release'
