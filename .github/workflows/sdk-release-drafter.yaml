@@ -54,7 +54,11 @@ jobs:
 
       - name: Get Head Commit Message
         id: get-head-commit-message
-        run: echo "message=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
+        run: |
+          MESSAGE=$(git show -s --format=%s)
+
+          echo "Head Commit Message: '${MESSAGE}'"
+          echo "message=${MESSAGE}" >> "$GITHUB_OUTPUT"
 
       - uses: release-drafter/release-drafter@v6
         env:
