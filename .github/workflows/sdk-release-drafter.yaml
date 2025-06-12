@@ -66,5 +66,5 @@ jobs:
         with:
           config-name: ${{ inputs.config-name }}
           version: ${{ steps.detect-version.outputs.version }}
-          publish: "${{ contains(steps.get-head-commit-message.outputs.message, 'chore: prepare release') && github.event.pull_request.merged }}"
+          publish: "${{ contains(steps.get-head-commit-message.outputs.message, ': prepare release') && github.event.pull_request.merged }}"
           commitish: ${{ inputs.commitish }}
