@@ -3,7 +3,7 @@ gitRepoId: sdk-go
 
 generateInterfaces: true
 packageName: ubill
-packageVersion: 0.1.1
+packageVersion: 0.2.0
 
 files:
   .github/CODEOWNERS: { }
