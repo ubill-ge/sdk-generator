@@ -1,12 +1,14 @@
 openapi: 3.1.0
 info:
-  version: 2.1.7
+  version: 2.1.8
   title: UBill API
   description: |-
     UBill API - provides programmatic access to our resources.
     You will be able to integrate our service into your system and communicate with clients easily.
   termsOfService: https://ubill.ge/terms
   contact:
+    name: UBill
+    url: https://ubill.ge/
     email: info@ubill.ge
 
 servers:
@@ -15,7 +17,7 @@ servers:
 
 tags:
   - name: sms
-    description: SMS Endpoints
+    description: SMS messaging operations
 
 paths:
   /sms/brandNameCreate:
@@ -26,100 +28,84 @@ paths:
       description: |
         Register a new brand name for SMS messaging.
         Brand names are used to identify the sender of SMS messages (e.g., "ubill-info").
-      operationId: CreateBrandName
+      operationId: createBrandName
       requestBody:
-        $ref: '#/components/requestBodies/CreateBrandNamePayload'
+        $ref: '#/components/requestBodies/CreateBrandNameRequest'
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateBrandNameResponse'
+          $ref: '#/components/responses/CreateBrandNameSuccess'
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
       security:
-        - api_key: [ ]
+        - apiKey: []
+
   /sms/brandNames:
     get:
       tags:
         - sms
       summary: Get All Brand Names
       description: Retrieve a list of all registered brand names associated with your account.
-      operationId: GetBrandNames
+      operationId: listBrandNames
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BrandNamesResponse'
+          $ref: '#/components/responses/BrandNamesSuccess'
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
       security:
-        - api_key: [ ]
+        - apiKey: []
+
   /sms/send:
     post:
       tags:
         - sms
       summary: Send SMS
       description: Send SMS messages to one or multiple recipients using a registered brand name.
-      operationId: Send
+      operationId: sendSMS
       requestBody:
-        $ref: '#/components/requestBodies/SMSPayload'
+        $ref: '#/components/requestBodies/SendSMSRequest'
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SendSMSResponse'
+          $ref: '#/components/responses/SendSMSSuccess'
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
       security:
-        - api_key: [ ]
+        - apiKey: []
+
   /sms/report/{smsID}:
     get:
       tags:
         - sms
       summary: Get Delivery Report
       description: Fetch the delivery status of a previously sent SMS using its unique identifier.
-      operationId: GetDeliveryReport
+      operationId: getDeliveryReport
       parameters:
-        - $ref: '#/components/parameters/SMSIDParam'
+        - $ref: '#/components/parameters/SMSIDPathParam'
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeliveryReportResponse'
+          $ref: '#/components/responses/DeliveryReportSuccess'
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
       security:
-        - api_key: [ ]
+        - apiKey: []
+
   /sms/balance:
     get:
       tags:
         - sms
       summary: Get SMS Balance
       description: Retrieve your current SMS balance, indicating how many messages you can send.
-      operationId: GetBalance
+      operationId: getSMSBalance
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SMSBalanceResponse'
+          $ref: '#/components/responses/SMSBalanceSuccess'
         '401':
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
       security:
-        - api_key: [ ]
+        - apiKey: []
 
 components:
   parameters:
-    SMSIDParam:
+    SMSIDPathParam:
       name: smsID
       in: path
       description: Unique identifier of the SMS
@@ -128,7 +114,7 @@ components:
         $ref: '#/components/schemas/SMSIdentifier'
 
   schemas:
-    # Base Schemas
+    # Base Response Schema
     BaseResponse:
       type: object
       properties:
@@ -147,75 +133,95 @@ components:
       format: int64
       description: Response status code
       example: 0
+
     SMSIdentifier:
       type: integer
       format: int64
       description: Unique SMS identifier
 
-    # Business Objects
+    # Business Domain Objects
     BrandName:
       type: object
+      description: SMS brand name information
       properties:
         id:
           type: string
+          description: Brand identifier
           example: "1"
         name:
           type: string
+          description: Brand name used as SMS sender
           example: "ubill-info"
         authorized:
           type: string
+          description: Authorization status
           example: "1"
         createdAt:
           type: string
+          description: Brand creation timestamp
           example: "2025-05-28 10:07:18"
       required:
         - id
         - name
         - authorized
         - createdAt
+
     DeliveryReportItem:
       type: object
+      description: SMS delivery status for a phone number
       properties:
         number:
           type: string
+          description: Phone number as string
           example: "995511194241"
         statusID:
           type: string
+          description: Delivery status as string
           example: "1"
+      required:
+        - number
+        - statusID
 
     # Request Schemas
-    CreateBrandNamePayload:
-      required:
-        - brandName
+    CreateBrandNameRequest:
       type: object
+      description: Request payload for creating a brand name
       properties:
         brandName:
           type: string
+          description: Brand name to create
           example: "ubill-info"
-    SMSPayload:
       required:
-        - brandID
-        - numbers
-        - text
-        - stopList
+        - brandName
+
+    SendSMSRequest:
       type: object
+      description: Request payload for sending SMS
       properties:
         brandID:
           type: integer
           format: int64
+          description: Brand identifier as integer
           example: 1
         numbers:
           type: array
+          description: Array of phone numbers as integers
           items:
             type: integer
             format: int64
             example: 995511194241
         text:
           type: string
+          description: SMS message text
           example: "Hello"
         stopList:
           type: boolean
           description: Enable/disable checking numbers in the stop list
+      required:
+        - brandID
+        - numbers
+        - text
+        - stopList
 
     # Response Schemas
     CreateBrandNameResponse:
@@ -226,20 +232,22 @@ components:
             brandID:
               type: integer
               format: int64
-              description: Brand identifier
+              description: Brand identifier as integer
               example: 1
+
     BrandNamesResponse:
       allOf:
         - $ref: '#/components/schemas/BaseResponse'
         - type: object
-          required:
-            - brands
           properties:
             brands:
               type: array
               description: List of available brand names
               items:
                 $ref: '#/components/schemas/BrandName'
+          required:
+            - brands
+
     SendSMSResponse:
       allOf:
         - $ref: '#/components/schemas/BaseResponse'
@@ -247,7 +255,9 @@ components:
           properties:
             smsID:
               type: string
+              description: SMS identifier as string
               example: "100"
+
     DeliveryReportResponse:
       allOf:
         - $ref: '#/components/schemas/BaseResponse'
@@ -255,8 +265,10 @@ components:
           properties:
             result:
               type: array
+              description: Delivery report results
               items:
                 $ref: '#/components/schemas/DeliveryReportItem'
+
     SMSBalanceResponse:
       allOf:
         - $ref: '#/components/schemas/BaseResponse'
@@ -264,23 +276,62 @@ components:
           properties:
             sms:
               type: string
+              description: SMS balance as string
               example: "1000"
 
   requestBodies:
-    CreateBrandNamePayload:
+    CreateBrandNameRequest:
       description: Brand Name payload to create
+      required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CreateBrandNamePayload'
-    SMSPayload:
+            $ref: '#/components/schemas/CreateBrandNameRequest'
+
+    SendSMSRequest:
       description: SMS payload for sending messages
+      required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SMSPayload'
+            $ref: '#/components/schemas/SendSMSRequest'
 
   responses:
+    CreateBrandNameSuccess:
+      description: Brand name created successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateBrandNameResponse'
+
+    BrandNamesSuccess:
+      description: Brand names retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BrandNamesResponse'
+
+    SendSMSSuccess:
+      description: SMS sent successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SendSMSResponse'
+
+    DeliveryReportSuccess:
+      description: Delivery report retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeliveryReportResponse'
+
+    SMSBalanceSuccess:
+      description: SMS balance retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SMSBalanceResponse'
+
     Unauthorized:
       description: Unauthorized
       content:
@@ -288,7 +339,7 @@ components:
           example: "Please authorize with valid API key!"
 
   securitySchemes:
-    api_key:
+    apiKey:
       description: API key for authentication
       type: apiKey
       name: key

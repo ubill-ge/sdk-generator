@@ -10,17 +10,6 @@ rules:
       functionOptions:
         match: "^[a-zA-Z0-9\\.\\-_]+$"
 
-  pascal-case-name-rule:
-    severity: error
-    recommended: true
-    message: OperationId should be PascalCased.
-    type: style
-    given: "$.paths.[*].operationId"
-    then:
-      function: casing
-      functionOptions:
-        type: pascal
-
   require-openapi-rule:
     severity: error
     message: openapi field must be present with a non empty value
