@@ -1,6 +1,6 @@
 services:
   swagger-ui:
-    image: swaggerapi/swagger-ui:v5.26.0
+    image: swaggerapi/swagger-ui:v5.26.2
     ports:
       - "8080:8080"
     environment:
