@@ -14,7 +14,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@openapitools/openapi-generator-cli": "^2.21.1",
+    "@openapitools/openapi-generator-cli": "^2.21.2",
     "@stoplight/spectral-cli": "^6.15.0",
     "husky": "^9.1.7"
   }
