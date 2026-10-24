@@ -19,7 +19,7 @@ jobs:
 
       - name: Get changed SDKs
         id: changes
-        uses: tj-actions/changed-files@v46
+        uses: tj-actions/changed-files@v47
         with:
           since_last_remote_commit: true
           matrix: true
